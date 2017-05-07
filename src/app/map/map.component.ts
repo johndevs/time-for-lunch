@@ -4,6 +4,7 @@ import { Restaurant } from '../restaurant';
 import { LatLng, LatLngBounds } from 'angular2-google-maps/core';
 import { MdButtonToggle} from '@angular2-material/button-toggle';
 import { MdIcon } from '@angular2-material/icon';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'app-map',
@@ -25,7 +26,7 @@ export class MapComponent implements OnInit {
 
   bounds: LatLngBounds;
 
-  constructor(private _lunchService: LolnasService) { }
+  constructor(private _lunchService: LolnasService, private _localStorage: LocalStorageService) { }
 
   ngOnInit() {
     this._lunchService.getRestaurants().subscribe(
@@ -43,7 +44,7 @@ export class MapComponent implements OnInit {
     );
   }
 
-  calculateBounds(restaurants: Restaurant[]): LatLngBounds {
+  private calculateBounds(restaurants: Restaurant[]): LatLngBounds {
     if (window['google'] !== undefined) {
       const bounds = new window['google'].maps.LatLngBounds();
       restaurants.map(this.toLatLng).forEach(pos => bounds.extend(pos));
@@ -52,14 +53,15 @@ export class MapComponent implements OnInit {
     return null;
   }
 
-  toLatLng(restaurant: Restaurant): LatLng {
+  private toLatLng(restaurant: Restaurant): LatLng {
     if (window['google'] !== undefined) {
       return new window['google'].maps.LatLng(restaurant.latitude, restaurant.longitude);
     }
     return null;
   }
 
-  setFavourite(restaurant: Restaurant, favourite: boolean) {
+  private setFavourite(restaurant: Restaurant, favourite: boolean) {
       restaurant.favourite = favourite;
+      this._lunchService.updateRestaurant(restaurant);
   }
 }

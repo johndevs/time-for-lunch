@@ -17,6 +17,8 @@ import { AboutComponent } from './about/about.component';
 import { Gravatar } from 'ng2-gravatar-directive';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MdUniqueSelectionDispatcher } from '@angular2-material/core/coordination/unique-selection-dispatcher';
+import { FavouritesComponent } from './favourites/favourites.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 @NgModule({
   imports: [
@@ -35,13 +37,18 @@ import { MdUniqueSelectionDispatcher } from '@angular2-material/core/coordinatio
     MdButtonToggleModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'map', pathMatch: 'full' },
-      { path: 'favourites', component: MapComponent },
+      { path: 'favourites', component: FavouritesComponent },
       { path: 'map', component: MapComponent },
       { path: 'statistics', component: StatisticsComponent },
       { path: 'about', component: AboutComponent }
-    ])
+    ]),
+    LocalStorageModule.withConfig({
+            prefix: 'my-app',
+            storageType: 'localStorage'
+            //storageType: 'sessionStorage'
+    })
   ],
-  declarations: [AppComponent, MapComponent, AboutComponent, Gravatar, StatisticsComponent],
+  declarations: [AppComponent, MapComponent, AboutComponent, Gravatar, StatisticsComponent, FavouritesComponent],
   providers: [MdIconRegistry, MdUniqueSelectionDispatcher],
   bootstrap: [AppComponent]
 })

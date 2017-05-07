@@ -7,7 +7,7 @@
 	<sebm-google-map-info-window>
 		<md-card>
 	         <md-card-title>{{restaurant.name}}
-	         	<md-button-toggle md-icon-face #favBtn (change)="setFavourite(restaurant, favBtn.checked)" >
+	         	<md-button-toggle md-icon-face #favBtn (change)="setFavourite(restaurant, favBtn.checked)" [checked]="restaurant.favourite">
 	         		<md-icon [innerHTML] ="favBtn.checked ? 'star' : 'star_border'">star_border</md-icon>
 	         	</md-button-toggle>
 	         </md-card-title>
