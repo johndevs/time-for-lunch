@@ -1,0 +1,18 @@
+<sebm-google-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="false">
+  <sebm-google-map-marker *ngFor="let restaurant of restaurants" 
+		 	[latitude]="restaurant.latitude" 
+		 	[longitude]="restaurant.longitude"
+		 	[label]="">
+	 	
+	<sebm-google-map-info-window>
+		<md-card>
+	         <md-card-title>{{restaurant.name}}
+	         	<md-button-toggle md-icon-face #favBtn (change)="setFavourite(restaurant, favBtn.checked)" >
+	         		<md-icon [innerHTML] ="favBtn.checked ? 'star' : 'star_border'">star_border</md-icon>
+	         	</md-button-toggle>
+	         </md-card-title>
+        </md-card>
+  	</sebm-google-map-info-window>         	
+	 	
+  </sebm-google-map-marker>			 			 	
+</sebm-google-map>		
